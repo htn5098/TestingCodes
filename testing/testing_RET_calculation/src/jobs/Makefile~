@@ -1,0 +1,6 @@
+install_packages:
+	@qsub testing_install.qbs
+	@echo: "The job is in progress"
+
+processing_data:
+	@qsub testing_data.qbs

@@ -1,0 +1,13 @@
+Job started on comp-bc-0361.acib.production.int.aci.ics.psu.edu at Tue Feb 25 17:28:48 EST 2020
+[1] "/storage/home/h/htn5098/local_lib/R35"
+[2] "/usr/lib64/R/library"                 
+[3] "/usr/share/R/library"                 
+Loading required package: iterators
+Loading required package: parallel
+[1] "Reading nc file"
+[1] "Reading supporting files"
+[1] "Extracting data"
+[1] "Data extraction complete"
+[1] "Writing data files"
+/var/spool/torque/mom_priv/jobs/16859225.torque01.util.production.int.aci.ics.psu.edu.SC: line 23: 139972 Killed                  Rscript ./src/Rcodes/RET_processing_rawdata.R "./data/raw/force_SERC_8th.1979_2016.nc" "tasmax" "historical"
+Job ended at Tue Feb 25 17:36:17 EST 2020

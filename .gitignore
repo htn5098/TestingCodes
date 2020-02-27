@@ -1,0 +1,5 @@
+*.nc
+data/
+jobs/*.o*
+.Rdata
+.Rhistory
