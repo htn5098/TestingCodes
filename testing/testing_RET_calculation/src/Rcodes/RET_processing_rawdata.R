@@ -48,7 +48,8 @@ print("Writing data files")
 clusterEvalQ(cl,.libPaths("/storage/home/htn5098/local_lib/R35")) # Really have to import library paths into the workers
 clusterExport(cl,list('var.matrix.sa','period','var')) #list('var.matrix.sa') expporting data into clusters for parallel processing
 foreach(i = 1:10) %dopar% { #ncol(var.matrix.sa)
-  head(var.matrix.sa[,i])
+  print(period)
+#  head(var.matrix.sa[,i])
 #  outfile=data.frame(var.matrix.sa[,i])
 #  grid=colnames(var.matrix.sa)[i]
 #  outfilename=paste0('./data/interim/UW_',period,'_',var,'_',grid,'.csv')
