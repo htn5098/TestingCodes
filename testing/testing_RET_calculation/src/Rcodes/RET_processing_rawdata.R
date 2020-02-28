@@ -30,7 +30,7 @@ indx = sort(unique(coord_se$Grid)) # index numbers of grids in the study area
 # Extracting data from array to matrix
 # time <- seq.Date(as.Date('1979-01-01'), as.Date('2016-12-31'), by ='days')
 print("Extracting data")
-nc.var <- ncvar_get(nc.file, varid = var) # variable extracted in array format (lon,lat,day)
+nc.var <- ncvar_get(nc.file,varid = var) # variable extracted in array format (lon,lat,day)
 nc.att <- ncatt_get(nc.file,varid=var)
 print(nc.att$unit)
 dim <- dim(nc.var)
@@ -44,7 +44,8 @@ print("Data extraction complete")
 
 # Writing .csv file for each grid cells
 print("Writing data files")
-#setwd("./data/interim") #setting working directory to a new path resets the library paths, preventing the workers to load the package doParralel
+#setwd("./data/interim") #it is not setting working directory to a new path that resets the library paths, preventing the workers to load the package doParralel
+clusterEvalQ(cl,.libPaths("/storage/home/htn5098/local_lib/R35")) # Really have to import library paths into the workers
 clusterExport(cl,list('var.matrix.sa','period','var')) #list('var.matrix.sa') expporting data into clusters for parallel processing
 foreach(i = 1:10) %dopar% { #ncol(var.matrix.sa)
   head(var.matrix.sa[,i])
