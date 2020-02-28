@@ -14,7 +14,7 @@ library(parallel)
 
 # Registering cores for parallel processing
 no_cores <- detectCores() #24 cores per node - enough for parallel processing
-#print(no_cores)
+print(no_cores)
 cl <- makeCluster(no_cores)
 registerDoParallel(cl)
 
@@ -47,11 +47,11 @@ print("Writing data files")
 #setwd("./data/interim") #setting working directory to a new path resets the library paths, preventing the workers to load the package doParralel
 clusterExport(cl,list('var.matrix.sa','period','var')) #list('var.matrix.sa') expporting data into clusters for parallel processing
 foreach(i = 1:10) %dopar% { #ncol(var.matrix.sa)
-  outfile=data.frame(var.matrix.sa[,i])
-  grid=colnames(var.matrix.sa)[i]
-  outfilename=paste0('./data/interim/UW_',period,'_',var,'_',grid,'.csv')
-  print(outfilename)
-  read.csv(outfile,outfilename,row.names=F,col.names=F)
+  head(var.matrix.sa[,i])
+#  outfile=data.frame(var.matrix.sa[,i])
+#  grid=colnames(var.matrix.sa)[i]
+#  outfilename=paste0('./data/interim/UW_',period,'_',var,'_',grid,'.csv')
+#  write.csv(outfile,outfilename,row.names=F,col.names=F)
 }
 print("Completed")
 stopCluster(cl)
