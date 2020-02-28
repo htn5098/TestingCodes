@@ -43,10 +43,11 @@ var.matrix.sa[,indx_NA] <- 0 # eliminating no data grids
 print("Data extraction complete")
 
 # Writing .csv file for each grid cells
-print("Writing data files")
-#setwd("./data/interim") #it is not setting working directory to a new path that resets the library paths, preventing the workers to load the package doParralel
+print("Exporting into the workers")
 clusterEvalQ(cl,.libPaths("/storage/home/htn5098/local_lib/R35")) # Really have to import library paths into the workers
 clusterExport(cl,list('var.matrix.sa','period','var')) #list('var.matrix.sa') expporting data into clusters for parallel processing
+print("Writing data files")
+#setwd("./data/interim") #it is not setting working directory to a new path that resets the library paths, preventing the workers to load the package doParralel
 foreach(i = 1:10) %dopar% { #ncol(var.matrix.sa)
   print(i)
 #  head(var.matrix.sa[,i])
