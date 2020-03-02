@@ -1,12 +1,16 @@
-.DEFAULT_GOAL := processing_data
+.all: | proc_rawdata RET_cal
 
-processing_data: install_packages
-	@qsub testing_process_raw_data.pbs
+proc_rawdata: 
+	@module purge
+	@module load python
+	@python batchsub_process_raw.py
 	@echo "Processing is in progress"
 
-install_packages:
-	@qsub testing_install.pbs
-	@echo "Install is in progress"
- 
-clean:
+RET_cal:  
+	@qsub 
+
+clean_output:
 	rm *.o*
+
+clean_batch:
+	rm batch*.pbs
