@@ -28,7 +28,6 @@ coord_se <- read.table('./data/SDGrid0125sort.txt', sep = ',', header = T) # Fil
 indx = sort(unique(coord_se$Grid)) # index numbers of grids in the study area
 
 # Extracting data from array to matrix
-# time <- seq.Date(as.Date('1979-01-01'), as.Date('2016-12-31'), by ='days')
 print("Extracting data")
 nc.var <- ncvar_get(nc.file,varid = var) # variable extracted in array format (lon,lat,day)
 nc.att <- ncatt_get(nc.file,varid=var)
@@ -39,18 +38,14 @@ dim(var.matrix) <- c(dim[3],dim[2]*dim[1]) # turning the array into a 2d matrix 
 var.matrix.sa <- var.matrix[,indx] # selecting only gridcells within the study area
 colnames(var.matrix.sa) <- as.character(indx)
 indx_NA <- which(colSums(is.na(var.matrix.sa)) != 0) # finding grids with NA's
-#print(indx_NA)
 var.matrix.sa[,indx_NA] <- 0 # eliminating no data grids
-#print(dim(var.matrix.sa))
-#print(which(colSums(var.matrix.sa)==0))
 print(which(colSums(is.na(var.matrix.sa)) != 0))
 print("Data extraction complete")
 
 
 # Writing .csv file for each grid cells
 print("Exporting into the workers")
-clusterEvalQ(cl,.libPaths("/storage/home/htn5098/local_lib/R35")) # Really have to import library paths into the workers
-#print(names(as.list(.GlobalEnv)))
+invisible(clusterEvalQ(cl,.libPaths("/storage/home/htn5098/local_lib/R35"))) # Really have to import library paths into the workers
 clusterExport(cl,list('var.matrix.sa','period','var')) #list('var.matrix.sa') expporting data into clusters for parallel processing
 print("Writing data files")
 #setwd("./data/interim") #it is not setting working directory to a new path that resets the library paths, preventing the workers to load the package doParralel
@@ -58,7 +53,7 @@ foreach(i = 1:2) %dopar% { #ncol(var.matrix.sa)
   outfile=data.frame(var.matrix.sa[,i])
   colnames(outfile) <- NULL
   grid=colnames(var.matrix.sa)[i]
-  outfilename=paste0('./data/interim/UW_',period,'_',var,'_',grid,'_',i,'.csv')
+  outfilename=paste0('./data/interim/UW_',period,'_',var,'_',grid,'.csv')
   write.csv(outfile,outfilename,row.names=F,col.names=F)
 }
 print("Completed")
