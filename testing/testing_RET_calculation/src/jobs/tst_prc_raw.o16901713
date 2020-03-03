@@ -1,8 +1,0 @@
-Job started on comp-bc-0288.acib.production.int.aci.ics.psu.edu at Thu Feb 27 16:53:24 EST 2020
-[1] "/storage/home/h/htn5098/local_lib/R35"
-[2] "/usr/lib64/R/library"                 
-[3] "/usr/share/R/library"                 
-Loading required package: iterators
-Loading required package: parallel
-[1] 24
-Job ended at Thu Feb 27 16:53:30 EST 2020

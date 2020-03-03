@@ -28,7 +28,7 @@ for y in var:
 
 ## Notifications
 #PBS -M htn5098@psu.edu # email address for notifications
-#PBS -m e # end email when job is aborted and ended
+#PBS -m a # end email when job is aborted
 #-------------------------------------------------------------------------------
 
 ## Load modules then list loaded modules
